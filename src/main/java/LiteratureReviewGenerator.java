@@ -33,25 +33,25 @@ public class LiteratureReviewGenerator {
 
         PDDocument pdDocument = new PDDocument();
 
-        float summaryFontSize = 12;
+        float summaryFontSize = 11;
         float leading = 1.5f * summaryFontSize;
 
         for (LiteratureReviewMetadata article : literature) {
             PDPage pdPage = new PDPage();
+            pdDocument.addPage(pdPage);
             PDRectangle mediabox = pdPage.getMediaBox();
             float margin = 90;
             float width = mediabox.getWidth() - 2 * margin;
             float startX = mediabox.getLowerLeftX() + margin;
             float startY = mediabox.getUpperRightY() - margin - 20;
 
-            pdDocument.addPage(pdPage);
-            PDPageContentStream contentStream = new PDPageContentStream(pdDocument, pdPage);
+            PDPageContentStream contentStream = new PDPageContentStream(pdDocument, pdPage, PDPageContentStream.AppendMode.PREPEND, true);
             contentStream.beginText();
             contentStream.setLeading(leading);
             contentStream.newLineAtOffset(startX, startY);
 
             PDFont titleFontName = PDType1Font.HELVETICA_BOLD;
-            float titleFontSize = 13;
+            float titleFontSize = 14;
             List<String> titleLines = parseText(article.getTitle(), width, titleFontSize, titleFontName);
             contentStream.setFont(titleFontName, titleFontSize);
             for (String line : titleLines) {

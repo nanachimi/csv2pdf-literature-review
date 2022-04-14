@@ -61,12 +61,12 @@ public class LiteratureReviewGenerator {
 
             contentStream.setLineWidth(0.6f);
 
-            PDFont authorsFontName = PDType1Font.HELVETICA_OBLIQUE;
-            float authorsFontSize = 11;
+            PDFont detailsFontName = PDType1Font.HELVETICA_OBLIQUE;
+            float detailsFontSize = 11;
             List<String> authorsLines =
-                    parseText(article.getAuthors(), width, authorsFontSize, authorsFontName);
+                    parseText(article.getAuthors(), width, detailsFontSize, detailsFontName);
 
-            contentStream.setFont(authorsFontName, authorsFontSize);
+            contentStream.setFont(detailsFontName, detailsFontSize);
 
             if (isNotBlank(authorsLines.get(0))) {
                 authorsLines.set(0, "Author(s): " + authorsLines.get(0));
@@ -81,8 +81,22 @@ public class LiteratureReviewGenerator {
             if (isNotBlank(article.getPublisher()) && isNotBlank(article.getYear())) {
                 String publicationInfos =
                         "Publisher: " + article.getPublisher() + " in " + article.getYear();
-                List<String> pubs = parseText(publicationInfos, width, authorsFontSize, authorsFontName);
+                List<String> pubs = parseText(publicationInfos, width, detailsFontSize, detailsFontName);
                 for (String line : pubs) {
+                    contentStream.showText(line);
+                    contentStream.newLineAtOffset(0, -leading);
+                }
+            }
+
+            // Parse and write keywords if available
+            if (isNotBlank(article.getKeywords())) {
+                String keywords =
+                        "Keywords: " + article.getKeywords()
+                                .replace(",", ";")
+                                .replace("\t", "")
+                                .replace("\n", "");
+                List<String> words = parseText(keywords, width, detailsFontSize, detailsFontName);
+                for (String line : words) {
                     contentStream.showText(line);
                     contentStream.newLineAtOffset(0, -leading);
                 }

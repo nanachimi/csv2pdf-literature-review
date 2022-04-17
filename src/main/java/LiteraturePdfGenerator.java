@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.pdfbox.pdmodel.PDPageContentStream.*;
+import static org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
 
 public class LiteraturePdfGenerator {
 
@@ -236,11 +236,11 @@ public class LiteraturePdfGenerator {
         System.out.println("Title: " + article.getTitle());
         System.out.println("Author(s): " + article.getAuthors());
         if (isNotBlank(article.getPublisher()) && isNotBlank(article.getYear()) && isNotBlank(article.getPublication())) {
-            System.out.println("Publisher: " + article.getPublisher() + "; " + article.getPublication() + "; " + article.getYear() );
+            System.out.println("Publisher: " + article.getPublisher() + "; " + article.getPublication() + "; " + article.getYear());
         } else if (isNotBlank(article.getPublisher()) && isNotBlank(article.getYear())) {
             System.out.println("Publisher: " + article.getPublisher() + "; " + article.getYear());
         } else if (isNotBlank(article.getYear()) && isNotBlank(article.getPublication())) {
-            System.out.println("Publisher: "   + article.getPublication() + "; " +  article.getYear());
+            System.out.println("Publisher: " + article.getPublication() + "; " + article.getYear());
         } else if (isNotBlank(article.getPublisher()) && isNotBlank(article.getPublication())) {
             System.out.println("Publisher: " + article.getPublisher() + "; " + article.getPublication());
         }

@@ -4,7 +4,7 @@ public class GeneratorStarter {
         // Start Generator
         String sourceFileName = "source.csv";
         String outputFileName = "output.pdf";
-        LiteratureReviewGenerator generator = new LiteratureReviewGenerator();
+        LiteraturePdfGenerator generator = new LiteraturePdfGenerator();
         generator.generate(sourceFileName, outputFileName);
     }
 }

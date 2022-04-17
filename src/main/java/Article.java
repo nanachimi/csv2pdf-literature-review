@@ -1,6 +1,7 @@
 import com.opencsv.bean.CsvBindByName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,10 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LiteratureReviewMetadata {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Article {
+
+    @EqualsAndHashCode.Include
     @CsvBindByName(column = "Authors", required = true)
     private String authors;
 
+    @EqualsAndHashCode.Include
     @CsvBindByName(column = "Title", required = true)
     private String title;
 
@@ -30,6 +35,7 @@ public class LiteratureReviewMetadata {
     @CsvBindByName(column = "Year")
     private String year;
 
+    @EqualsAndHashCode.Include
     @CsvBindByName(column = "Publisher")
     private String publisher;
 
@@ -42,6 +48,10 @@ public class LiteratureReviewMetadata {
     @CsvBindByName(column = "Links")
     private String links;
 
-    @CsvBindByName(column = "DOI")
-    private String doi;
+    @CsvBindByName(column = "Comments")
+    private String comments;
+
+    @CsvBindByName(column = "ToExclude")
+    private String toExclude;
+
 }

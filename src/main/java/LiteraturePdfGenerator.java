@@ -102,7 +102,7 @@ public class LiteraturePdfGenerator {
 
                 // Parse and write keywords if available
                 if (isNotBlank(article.getKeywords())) {
-                    var keywords = "Keywords: " + sanitizeKeywords(article);
+                    var keywords = "Keywords: " + sanitizeKeywords(article.getKeywords());
                     System.out.println(keywords);
                     List<String> words = parseText(keywords, width, detailsFontSize, detailsFontName);
 
@@ -222,8 +222,10 @@ public class LiteraturePdfGenerator {
         System.out.println("Title: " + article.getTitle());
         System.out.println("Author(s): " + article.getAuthors());
         String publicationInfos = parsePublisher(article);
-        System.out.println("Publisher: " + publicationInfos);
 
+        if (isNotBlank(publicationInfos)) {
+            System.out.println("Publisher: " + publicationInfos);
+        }
         if (isNotBlank(article.getComments())) {
             System.out.println("Comments: " + article.getComments());
         }
@@ -244,8 +246,8 @@ public class LiteraturePdfGenerator {
         return publicationInfos;
     }
 
-    private String sanitizeKeywords(Article article) {
-        return Arrays.stream(article.getKeywords()
+    private String sanitizeKeywords(String keywords) {
+        return Arrays.stream(keywords
                         .replace(",", ";")
                         .replace("\t", "")
                         .replace("\n", "")
